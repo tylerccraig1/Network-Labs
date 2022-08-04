@@ -1,0 +1,48 @@
+enable
+config t
+hostname S1
+no ip domain-lookup
+enable secret Lab1
+line con 0
+logging synchronous
+password Lab 1
+login
+exit
+line vty 0 15
+logging synchronous
+password Lab1
+login
+exit
+vlan 10
+name Floor1
+exit
+vlan 15
+name Floor2
+exit
+vlan 20
+name Floor3
+exit
+interface range f0/1 - f0/3
+switchport mode access
+switchport access vlan 10
+no shutdown
+exit
+interface range f0/4 - f0/6
+switchport mode access
+switchport access vlan 15
+no shutdown
+exit
+interface range f0/7 - f0/9
+switchport mode access
+switchport access vlan 20
+no shutdown
+exit
+vlan 99
+name Blackhole
+exit
+interface range f0/11 - f0/24
+switchport mode access
+switchport access vlan 99
+shutdown
+exit
+do copy running-config startup-config
