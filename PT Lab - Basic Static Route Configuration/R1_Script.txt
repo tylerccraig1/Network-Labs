@@ -1,0 +1,29 @@
+enable
+config t
+hostname R1
+no ip domain-lookup
+service password encryption
+enable secret Cisco
+line con 0
+logging synchronous
+password Cisco
+login
+line vty 0 15
+password Cisco
+login
+exit
+ip routing
+ip route 192.168.30.0 255.255.255.0 s0/0/0
+ip route 192.168.40.0 255.255.255.0 s0/0/0
+ip route 192.168.50.0 255.255.255.0 s0/0/0
+int g0/0
+description Link to Floor 1
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+int s0/0/0
+description Link to Building B
+ip address 192.168.20.1 255.255.255.252
+clock rate 56000
+no shutdown
+exit
+do copy running-config startup-config
